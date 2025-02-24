@@ -38,6 +38,14 @@ public class GreetingService {
         return new GreetingResponse(message,201);
     }
 
+
+    //UC05 :  Create a method to find message by id
+    public GreetingMessage getGreetingById(Long id) {
+        return greetingRepository.findById(id).orElseThrow(() ->
+                new RuntimeException("Greeting not found for ID: " + id));
+    }
+
+
     // Retrieve All Saved Messages
     public List<GreetingMessage> getAllGreetings() {
         return greetingRepository.findAll();
