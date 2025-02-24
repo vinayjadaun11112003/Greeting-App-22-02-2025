@@ -4,6 +4,7 @@ import com.example.GreetingApp.dto.GreetingResponse;
 import com.example.GreetingApp.entity.GreetingMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.GreetingApp.service.GreetingService;
 
@@ -30,11 +31,25 @@ public class GreetingController {
     public List<GreetingMessage> getAllGreetings() {
         return greetingService.getAllGreetings();
     }
+    // Created a method to get messages using id
+    @GetMapping("/{Id}")
+    public GreetingMessage getGreetingById(@PathVariable Long Id) {
+        return greetingService.getGreetingById(Id);
+    }
 
-    // Handles PUT requests
-    @PutMapping
-    public GreetingResponse putGreeting() {
-        return new GreetingResponse(greetingService.putGreetingMessage(), HttpStatus.OK.value());
+//    // Created a method to get all messages using id
+//    @GetMapping("/{id}")
+//    public ResponseEntity<GreetingMessage> getAllGreetingById(@PathVariable Long id) {
+//        return ResponseEntity.ok(greetingService.getGreetingById(id));
+//    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<GreetingMessage> updateGreeting(@PathVariable Long id, @RequestBody GreetingMessage newGreeting) {
+        // Making call to service layer update greeting and get the updated response
+        GreetingMessage updatedGreeting = greetingService.updateGreeting(id, newGreeting.getMessage());
+
+        // returning the updated greeting status
+        return ResponseEntity.ok(updatedGreeting);
     }
 
     // Handles DELETE requests
