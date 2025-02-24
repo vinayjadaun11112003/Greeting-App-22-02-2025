@@ -1,4 +1,5 @@
 package com.example.GreetingApp.controller;
+import com.example.GreetingApp.dto.GreetingRequest;
 import com.example.GreetingApp.dto.GreetingResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,7 +8,6 @@ import com.example.GreetingApp.service.GreetingService;
 @RestController
 @RequestMapping("/greeting")
 public class GreetingController {
-
 
     @Autowired
     private final GreetingService greetingService;
@@ -23,8 +23,8 @@ public class GreetingController {
     }
 
     @PostMapping
-    public GreetingResponse postGreeting() {
-        return new GreetingResponse("Hello Vinay Jadaun, this is a POST request!", HttpStatus.CREATED.value());
+    public GreetingResponse postGreeting(@RequestBody GreetingRequest greet) {
+        return new GreetingResponse("Hello"+greet.getFirstName() + " " + greet.getLastName()+", this is a POST request!", HttpStatus.CREATED.value());
     }
 
     @PutMapping
