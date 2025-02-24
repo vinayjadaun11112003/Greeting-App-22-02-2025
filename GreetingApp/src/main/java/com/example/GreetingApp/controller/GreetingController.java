@@ -24,7 +24,7 @@ public class GreetingController {
 
     @PostMapping
     public GreetingResponse postGreeting(@RequestBody GreetingRequest greet) {
-        return new GreetingResponse("Hello"+greet.getFirstName() + " " + greet.getLastName()+", this is a POST request!", HttpStatus.CREATED.value());
+        return new GreetingResponse("Hello "+greet.getFirstName() + " " + greet.getLastName()+", this is a POST request!", HttpStatus.CREATED.value());
     }
 
     @PutMapping
